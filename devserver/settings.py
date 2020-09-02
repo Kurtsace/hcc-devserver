@@ -65,7 +65,7 @@ ROOT_URLCONF = 'devserver.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATES_DIR],
+        'DIRS': [TEMPLATES_DIR,],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,8 +136,11 @@ STATICFILES_DIRS = [
 
 
 #Media files 
-MEDIA_URL = '/media'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
 
 #Crispy template 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+#Login redirect 
+LOGIN_REDIRECT_URL = '/'

@@ -1,0 +1,21 @@
+#navbar-menu{
+    background-color: white
+}
+
+#navbar-menu .nav-item .nav-link{
+    color: black;
+    font-weight: bold;
+}
+
+#navbar-menu .nav-link:hover{
+    color: coral;
+}
+
+.navbar-brand{
+    color: black;
+    font-weight: bold;
+}
+
+.navbar-brand:hover{
+    color: coral;
+}
