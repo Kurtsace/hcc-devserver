@@ -1,0 +1,51 @@
+{% extends 'devserver/base.html' %}
+{% load static %}
+
+{% block title %} Downloads {% endblock %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="">
+{% endblock %}
+
+{% block body %}
+
+    <div class="jumbotron">
+        <h1>Downloads</h1>
+
+        <br>
+        <a class="btn btn-primary" href="{% url 'file_upload:upload_file' %}">Upload</a>
+    </div>
+
+    <div class="container" id="file-list-cards">
+
+        {% for file in file_list %}
+
+            <div class="card">
+
+                <div class="card-header">
+                    <h3><a href="{% url 'file_upload:file_detail' slug=file.slug %}">{{ file.file_name|title }}</a></h3>
+                </div>
+
+                <div class="card-body">
+                    <p>{{ file.description|truncatechars:255|safe|linebreaks }}</p>
+                </div>
+
+                <div class="card-footer text-muted">
+                    <p><small>Uploaded {{ file.upload_date|timesince }} ago by {{ file.user|title }}</small></p>
+                </div>
+
+            </div>
+
+        {% empty %}
+
+            <div class="card" id='empty-card'>
+                <div class="card-body">
+                    <h4>There are currently no files uploaded</h4>
+                </div>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

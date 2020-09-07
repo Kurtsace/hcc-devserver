@@ -1,0 +1,28 @@
+{% extends 'devserver/base.html' %} 
+{% load static %} 
+{% block title %} {{file.file_name }} {% endblock %} 
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="" />
+{% endblock %} {% block body %}
+
+<div class="container" id="file-detail-card">
+  <div class="card">
+
+    <div class="card-header">
+      <h3>{{ file.file_name|title }}</h3>
+      <h5><small>Version: {{ file.version }}</small></h5>
+    </div>
+
+    <div class="card-body">
+      <p>{{ file.description|safe|linebreaks }}</p>
+    </div>
+
+    <div class="card-footer text-muted">
+      <p><small>Uploaded {{ file.upload_date|timesince }} ago by {{ file.user|title}}</small></p>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

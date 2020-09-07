@@ -1,0 +1,35 @@
+{% extends 'devserver/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %} Upload {% endblock %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="">
+{% endblock %}
+
+{% block body %}
+
+    <br>
+    <div class="container" id="file-upload-card">
+
+        <div class="card" id="file-upload-card">
+
+            <div class="card-header">
+                <h3><strong>Upload File</strong></h3>
+            </div>
+
+            <div class="card-body">
+                <form action="" method="POST" enctype="multipart/form-data">
+
+                    {% csrf_token %}
+                    {{ form|crispy }}
+    
+                    <input class="btn btn-primary" type="submit" value="Upload">
+                    <a href="{% url 'file_upload:file_list' %}">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
