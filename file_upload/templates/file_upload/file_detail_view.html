@@ -12,6 +12,17 @@
     <div class="card-header">
       <h3>{{ file.file_name|title }}</h3>
       <h5><small>Version: {{ file.version }}</small></h5>
+
+      <hr>
+      {% if user.is_superuser %}
+        <a class="btn btn-sm btn-warning" href="{% url 'file_upload:update_file_details' slug=file.slug %}">Edit Details</a>
+        <a class="btn btn-sm btn-primary" href="{% url 'file_upload:update_file' slug=file.slug %}">Upload New File</a>
+        <a class="btn btn-sm btn-danger" href="{% url 'file_upload:delete_file' slug=file.slug %}">Delete</a>
+      {% endif %}
+
+      {% if user.is_authenticated %}
+        <a class="btn btn-sm btn-primary" href="">Download</a>
+      {% endif %}
     </div>
 
     <div class="card-body">

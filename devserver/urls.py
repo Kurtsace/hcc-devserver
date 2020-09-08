@@ -36,4 +36,5 @@ urlpatterns = [
     
     #File upload 
     path('file_upload/', include('file_upload.urls', namespace='file_upload')),
+    
 ]

@@ -8,7 +8,7 @@
 }
 
 #navbar-menu .nav-link:hover{
-    color: coral;
+    color: lightblue;
 }
 
 .navbar-brand{
@@ -17,5 +17,5 @@
 }
 
 .navbar-brand:hover{
-    color: coral;
+    color: lightblue;
 }

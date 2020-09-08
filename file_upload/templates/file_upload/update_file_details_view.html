@@ -16,16 +16,13 @@
         <div class="card" id="file-upload-card">
 
             <div class="card-header">
-                <h3><strong>Update File</strong></h3>
+                <h3><strong>Upload File</strong></h3>
             </div>
 
             <div class="card-body">
-                <form action="" method="POST" enctype="multipart/form-data">
+                <form action="" method="POST">
 
                     {% csrf_token %}
-
-                    <p>Current file: {{ file.uploaded_file.path }}</p>
-
                     {{ form|crispy }}
     
                     <input class="btn btn-primary" type="submit" value="Update">

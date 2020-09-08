@@ -78,7 +78,7 @@ class UpdateFileDetails(generic.UpdateView):
     fields = ['file_name', 'description', 'version']
     
     #Template
-    template_name = 'file_upload/update_file_view.html'
+    template_name = 'file_upload/update_file_details_view.html'
     
 #Delete file view 
 class DeleteFile(generic.DeleteView):
