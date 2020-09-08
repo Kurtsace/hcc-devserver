@@ -37,4 +37,7 @@ urlpatterns = [
     #File upload 
     path('file_upload/', include('file_upload.urls', namespace='file_upload')),
     
+    #File download
+    path('file_download', include('file_download.urls', namespace='file_download')),
+    
 ]
