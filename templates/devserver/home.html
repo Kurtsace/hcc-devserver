@@ -16,13 +16,24 @@
 
     <div class="container" id="navigation-cards">
 
-        <div class="card" id="file-download-card">
+        <div class="card">
             <div class="card-header">
                 <h3><a href="{% url 'file_upload:file_list' %}">Downloads</a></h3>
             </div>
 
             <div class="card-body">
                 <p class="card-text">Download software here</p>
+            </div>
+        </div>
+
+        <br>
+        <div class="card">
+            <div class="card-header">
+                <h3><a href="{% url 'taxi_log:order_list_view' %}">Taxi Log</a></h3>
+            </div>
+            
+            <div class="card-body">
+                <p class="card-text">Generate and input order numbers here</p>
             </div>
         </div>
 

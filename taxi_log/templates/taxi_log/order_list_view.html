@@ -1,0 +1,58 @@
+{% extends 'devserver/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %} Taxi Log {% endblock %}
+
+{% block stylesheet %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="card">
+
+            <div class="card-header">
+                <h3>Taxi Log</h3>
+
+                <br>
+                <a class="btn btn-primary btn-sm" href="{% url 'taxi_log:create_order' %}">New Order</a>
+            </div>
+    
+            <div class="card-body">
+    
+                <table class="table table-striped">
+                    <thead class="thead-dark"> 
+                        <tr>
+                            <th>Request Log ID</th>
+                            <th>Order Number</th>
+                            <th>Confirmation Number</th>
+                            <th>Monitor</th>
+                        </tr>
+                    </thead>
+
+                    {% for order in taxiorder_list %}
+
+                        <tr>
+                            <td>{{ order.request_log_id }}</td>
+                            <td>{{ order.order_number }}</td>
+                            <td>{{ order.confirmation_number }}</td>
+                            <td>{{ order.user.username }}</td>
+                        </tr>
+
+                    {% empty %}
+                        <tr>
+                            <td>No Current Orders</td>
+                        </tr>
+                    {% endfor %}
+
+
+                </table>
+    
+            </div>
+    
+        </div>
+
+    </div>
+{% endblock %}

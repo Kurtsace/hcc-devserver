@@ -1,0 +1,36 @@
+{% extends 'devserver/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %} Order {% endblock %}
+
+{% block stylesheet %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="card">
+
+            <div class="card-header">
+                <h3>Submit Order</h3>
+            </div>
+    
+            <div class="card-body">
+    
+                <form action="" method="POST">
+    
+                    {% csrf_token %}
+                    {{ form|crispy }}
+    
+                    <input class="btn btn-primary" type="submit" value='Submit'>
+                    <a class="btn btn-danger" href="">Cancel</a>
+                </form>
+    
+            </div>
+    
+        </div>
+
+    </div>
+{% endblock %}

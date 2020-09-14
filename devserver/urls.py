@@ -38,6 +38,9 @@ urlpatterns = [
     path('file_upload/', include('file_upload.urls', namespace='file_upload')),
     
     #File download
-    path('file_download', include('file_download.urls', namespace='file_download')),
+    path('file_download/', include('file_download.urls', namespace='file_download')),
+    
+    #Taxi Log
+    path('taxi_log/', include('taxi_log.urls', namespace='taxi_log'))
     
 ]

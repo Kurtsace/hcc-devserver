@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     
     'file_upload',
     'file_download',
-    'web_booker',
+    'taxi_log',
     'accounts',
     
     'crispy_forms',
