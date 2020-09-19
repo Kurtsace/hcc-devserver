@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from file_upload.models import File
 from django.http import FileResponse, Http404
+from django.contrib.auth.mixins import LoginRequiredMixin
 import os 
 
 # Create your views here.

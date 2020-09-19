@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse
 from .forms import UpdateFileForm, UploadFileForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 
 from .models import File
