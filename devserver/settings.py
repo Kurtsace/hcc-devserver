@@ -29,7 +29,7 @@ SECRET_KEY = 'e))s0l#2m*-4f3fymss9pw1=vudk_2$%5@0!v0)u2)*i(*s18m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['devserver.local']
+ALLOWED_HOSTS = ['hcc-devserver', 'hcc-devserver.gov.mb.ca']
 
 
 # Application definition

@@ -38,7 +38,7 @@
                             <td>{{ order.request_log_id }}</td>
                             <td>{{ order.order_number }}</td>
                             <td>{{ order.confirmation_number }}</td>
-                            <td>{{ order.user.username }}</td>
+                            <td>{{ order.user.username|upper }}</td>
                         </tr>
 
                     {% empty %}

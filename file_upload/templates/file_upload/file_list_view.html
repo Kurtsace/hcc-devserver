@@ -13,7 +13,9 @@
         <h1>Downloads</h1>
 
         <br>
-        <a class="btn btn-primary" href="{% url 'file_upload:upload_file' %}">Upload</a>
+	{% if user.is_superuser  %}
+        	<a class="btn btn-primary" href="{% url 'file_upload:upload_file' %}">Upload</a>
+	{% endif  %}
     </div>
 
     <div class="container" id="file-list-cards">
@@ -29,7 +31,7 @@
                         <a class="btn btn-sm btn-primary" href="{% url 'file_upload:update_file' slug=file.slug %}">Upload New File</a>
                         <a class="btn btn-sm btn-danger" href="{% url 'file_upload:delete_file' slug=file.slug %}">Delete</a>
                     {% elif user.is_authenticated %}
-                        <a class="btn btn-sm btn-primary" href="">Download</a>
+                        
                     {% endif %}
                 </div>
 
