@@ -46,9 +46,12 @@ INSTALLED_APPS = [
     'file_download',
     'taxi_log',
     'accounts',
+    'admin_dashboard',
     
     'crispy_forms',
     'bootstrap4',
+    
+    'django_filters',
 ]
 
 MIDDLEWARE = [

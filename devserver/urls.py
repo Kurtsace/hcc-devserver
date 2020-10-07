@@ -32,6 +32,9 @@ urlpatterns = [
     #Home url
     path('', Home.as_view(), name='home'),
     
+    #Admin dashboard
+    path('admin_dashboard/', include('admin_dashboard.urls', namespace='admin_dashboard')),
+    
     #Accounts URLS
     path('accounts/', include('accounts.urls', namespace='accounts')),
     

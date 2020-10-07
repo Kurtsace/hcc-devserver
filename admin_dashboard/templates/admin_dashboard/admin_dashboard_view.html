@@ -1,0 +1,48 @@
+{% extends 'devserver/base.html' %}
+{% load static %}
+
+{% block title %} Admin Dashboard {% endblock %}
+
+{% block stylesheet %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <br>
+
+        <div class="card">
+            <div class="card-header">
+                <h3>User List</h3>
+            </div>
+
+            <div class='card-body'>
+                <table class="table table-striped">
+                    <thead class="thead-dark"> 
+                        <tr>
+                            <th>User</th>
+                            <th>User Since</th>
+                            <th>Last Login</th>
+                            <th>Total Taxi Orders</th>
+                        </tr>
+                    </thead>
+
+                    {% for user in user_list %}
+
+                        <tr>
+                            <td>{{ user.username|upper }}</td>
+                            <td>{{ user.date_joined }}</td>
+                            <td>{{ user.last_login }}</td>
+                            <td>{{ user.taxiorder_set.all|length }} <a href="{% url 'admin_dashboard:user_order_list_view' username=user.username %}">View All</a></td>
+                        </tr>
+
+                    {% empty %}
+                        <tr>
+                            <td>No Current Users</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
