@@ -10,6 +10,8 @@ from django.utils import timezone
 
 from .utils import render_to_pdf
 
+from .filters import TaxiOrderFilter
+
 # Create your views here.
 
 
@@ -75,6 +77,26 @@ class TaxiOrderList(LoginRequiredMixin, generic.ListView):
     #Template
     template_name = 'taxi_log/order_list_view.html'
     
+    #Context dict
+    def get_context_data(self, **kwargs):
+        
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+
+        #Filter 
+        order_filter = TaxiOrderFilter(self.request.GET, queryset=TaxiOrder.objects.all())
+        taxiorder_list = order_filter.qs.filter(request_log_id__isnull=False, confirmation_number__isnull=False)
+        
+        #Context variables
+        queried_date = self.request.GET.get('date_created')
+        
+        #Set context data
+        context['order_filter'] = order_filter
+        context['taxiorder_list'] = taxiorder_list
+        context['queried_date'] = queried_date if queried_date else timezone.now().date() 
+        
+        return context
+    
     def get_queryset(self):
         
         #Query for objects from today with non null entries
@@ -86,16 +108,7 @@ class TaxiOrderList(LoginRequiredMixin, generic.ListView):
 
     
 #View current query as PDF
-class TaxiOrderListPDF(LoginRequiredMixin, generic.ListView):
-    
-    #Query
-    def get_queryset(self):
-        
-        #Query for objects from today with non null entries
-        current_date = timezone.now().date()
-        query = TaxiOrder.objects.filter(request_log_id__isnull=False, confirmation_number__isnull=False, date_created__date=current_date)
-        
-        return query
+class TaxiOrderListPDF(LoginRequiredMixin, generic.View):
     
     #Get request to view the PDF
     def get(self, request, *args, **kwargs):
@@ -103,26 +116,25 @@ class TaxiOrderListPDF(LoginRequiredMixin, generic.ListView):
         #PDF html template 
         template_name = 'taxi_log/order_list_pdf.html'
         
+        #Query date 
+        query_date = self.kwargs['date'] if self.kwargs['date'] else timezone.now().date()
+        
+        #Query set 
+        taxiorder_list = TaxiOrder.objects.filter(request_log_id__isnull=False, confirmation_number__isnull=False, date_created__date=query_date)
+        
         #Context dictionary 
-        context_dict = {'taxiorder_list' : self.get_queryset}
+        context_dict = {'taxiorder_list' : taxiorder_list, 'query_date' : query_date}
         
         #Generate a pdf file for the query 
         pdf = render_to_pdf(template_name, context_dict)
         
         #Return the response 
         return pdf
-    
+
+
+
 #Download current query as a pdf
-class TaxiOrderListPDFDownload(LoginRequiredMixin, generic.ListView):
-    
-    #Query
-    def get_queryset(self):
-        
-        #Query for objects from today with non null entries
-        current_date = timezone.now().date()
-        query = TaxiOrder.objects.filter(request_log_id__isnull=False, confirmation_number__isnull=False, date_created__date=current_date)
-        
-        return query
+class TaxiOrderListPDFDownload(LoginRequiredMixin, generic.View):
     
      #Get request to view the PDF
     def get(self, request, *args, **kwargs):
@@ -130,15 +142,20 @@ class TaxiOrderListPDFDownload(LoginRequiredMixin, generic.ListView):
         #PDF html template 
         template_name = 'taxi_log/order_list_pdf.html'
         
+        #Query date 
+        query_date = self.kwargs['date'] if self.kwargs['date'] else timezone.now().date()
+        
+        #Query set 
+        taxiorder_list = TaxiOrder.objects.filter(request_log_id__isnull=False, confirmation_number__isnull=False, date_created__date=query_date)
+        
         #Context dictionary 
-        context_dict = {'taxiorder_list' : self.get_queryset}
+        context_dict = {'taxiorder_list' : taxiorder_list, 'query_date' : query_date}
         
         #Generate a pdf file for the query 
         pdf = render_to_pdf(template_name, context_dict)
         
         #Filename of the pdf --Formatted as "Taxi_Log_DATE.pdf"
-        current_date = timezone.now().date()
-        filename = 'Taxi_Log_{}.pdf'.format(current_date)
+        filename = 'Taxi_Log_{}.pdf'.format(query_date)
         
         #Set content disposition
         content = 'attachment; filename={}'.format(filename)

@@ -1,4 +1,5 @@
 {% extends 'devserver/base.html' %}
+{% load crispy_forms_tags %}
 {% load static %}
 
 {% block title %} Taxi Log {% endblock %}
@@ -18,9 +19,21 @@
                 <br>
                 <a class="btn btn-primary btn-sm" href="{% url 'taxi_log:create_order' %}">New Order</a>
 
+                <br>
+                <hr>
+                <h3>Filter Query</h3>
                 {% if user.is_staff %}
-                    <a class="btn btn-primary btn-sm" href="{% url 'taxi_log:order_list_pdf_view' %}">View PDF</a>
-                    <a class="btn btn-primary btn-sm" href="{% url 'taxi_log:order_list_pdf_download_view' %}">Download PDF</a>
+
+                    <form action="">
+                        {% csrf_token %}
+                        {{ order_filter.form|crispy }}
+
+                    <input class="btn btn-primary btn-sm" type="submit" value="Submit">
+                    </form>
+
+                    <hr>
+                    <a class="btn btn-primary btn-sm" href="{% url 'taxi_log:order_list_pdf_view' date=queried_date %}">View PDF</a>
+                    <a class="btn btn-primary btn-sm" href="{% url 'taxi_log:order_list_pdf_download_view' date=queried_date %}">Download PDF</a>
                 {% endif %}
             </div>
     
