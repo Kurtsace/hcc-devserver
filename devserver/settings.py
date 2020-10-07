@@ -29,7 +29,7 @@ SECRET_KEY = 'e))s0l#2m*-4f3fymss9pw1=vudk_2$%5@0!v0)u2)*i(*s18m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['hcc-devserver', 'hcc-devserver.gov.mb.ca']
+ALLOWED_HOSTS = ['devserver.local', 'hcc-devserver.me.mbgov.ca']
 
 
 # Application definition
@@ -117,13 +117,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Canada/Central'
+TIME_ZONE = 'America/Winnipeg'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

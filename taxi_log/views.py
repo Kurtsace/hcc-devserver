@@ -25,7 +25,7 @@ class CreateOrder(LoginRequiredMixin, generic.UpdateView):
         
         #Query a set of objects from today 
         current_date = timezone.now().date()
-        queryset = TaxiOrder.objects.filter(date_created__gte=current_date)
+        queryset = TaxiOrder.objects.filter(date_created__date=current_date)
         
         #If the quesryset is empty, initialize a new object 
         if not queryset:
@@ -44,7 +44,18 @@ class CreateOrder(LoginRequiredMixin, generic.UpdateView):
         else:
             
             #Create an order and increment the order number from the previous entry
-            order_number = queryset.last().order_number + 1
+            order_number = str(queryset.last().order_number)
+            
+            #Split the order number and increment only the digits after the date
+            #This will prevent still having the same date that will eventually increment to the point that the
+            #entire order number will auto increment into the next date
+            lhs_order_number = order_number[:4]
+            print(lhs_order_number)
+            rhs_order_number = '%03d' % ( int(order_number[4:]) + 1 )
+            print(rhs_order_number)
+            
+            order_number = int( lhs_order_number + rhs_order_number )
+            
             order = TaxiOrder(order_number=order_number, user=self.request.user)
             
             #Save the instance 
