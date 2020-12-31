@@ -20,9 +20,9 @@
                 <a class="btn btn-primary btn-sm" href="{% url 'taxi_log:create_order' %}">New Order</a>
 
                 <br>
+                {% if user.is_staff %}
                 <hr>
                 <h3>Filter Query</h3>
-                {% if user.is_staff %}
 
                     <form action="">
                         {% csrf_token %}

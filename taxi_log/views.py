@@ -84,8 +84,12 @@ class TaxiOrderList(LoginRequiredMixin, generic.ListView):
         context = super().get_context_data(**kwargs)
 
         #Filter 
-        order_filter = TaxiOrderFilter(self.request.GET, queryset=TaxiOrder.objects.all())
-        taxiorder_list = order_filter.qs.filter(request_log_id__isnull=False, confirmation_number__isnull=False)
+        order_filter = TaxiOrderFilter(self.request.GET, queryset=TaxiOrder.objects.filter(request_log_id__isnull=False, confirmation_number__isnull=False))
+        
+        if self.request.GET.get('date_created'):
+            taxiorder_list = order_filter.qs#.filter(request_log_id__isnull=False, confirmation_number__isnull=False, date_created__date=timezone.now().date())
+        else:
+            taxiorder_list = order_filter.qs.filter(request_log_id__isnull=False, confirmation_number__isnull=False, date_created__date=timezone.now().date())
         
         #Context variables
         queried_date = self.request.GET.get('date_created')

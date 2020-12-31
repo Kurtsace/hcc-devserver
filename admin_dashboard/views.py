@@ -10,10 +10,6 @@ from django.contrib.auth import get_user_model
 
 # Create your views here.
 
-#Global taxi order query 
-#We do this so that the pdf views can download the queries made from admin dashboard 
-taxiorder_list = TaxiOrder.objects.all()
-
 #Main dashboard view 
 class AdminDashboard(LoginRequiredMixin, generic.TemplateView):
     
@@ -35,7 +31,7 @@ class AdminDashboard(LoginRequiredMixin, generic.TemplateView):
         
         #Set context data
         context['order_filter'] = order_filter
-        context['taxiorder_list'] = taxiorder_list
+        context['taxiorder_list'] = TaxiOrder.objects.filter(request_log_id__isnull=False, confirmation_number__isnull=False)
         context['user_list'] = user_list
         
         return context
@@ -59,7 +55,7 @@ class UserTaxiOrderList(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         
         #Query all user orders 
-        query = get_object_or_404(get_user_model(), username=self.kwargs['username']).taxiorder_set.all()
+        query = get_object_or_404(get_user_model(), username=self.kwargs['username']).taxiorder_set.filter(request_log_id__isnull=False, confirmation_number__isnull=False)
         
         return query
         
