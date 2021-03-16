@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import json
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,12 +20,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #Templates dir
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
+# Open data file 
+DATA_FILE_DIR = os.path.join(BASE_DIR, 'data.json')
+with open(DATA_FILE_DIR) as f:
+    data = json.load(f)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'e))s0l#2m*-4f3fymss9pw1=vudk_2$%5@0!v0)u2)*i(*s18m'
+SECRET_KEY = data['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -91,10 +96,10 @@ WSGI_APPLICATION = 'devserver.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'hcc_taxilog_db',
-        'USER': 'dev',
-        'PASSWORD': 'mhrc123',
-        'HOST': 'localhost',
+        'NAME': data['NAME'],
+        'USER': data['USER'],
+        'PASSWORD': data['PASSWORD'],
+        'HOST': data['HOST'],
     }
 }
 
