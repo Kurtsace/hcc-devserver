@@ -19,7 +19,7 @@
     
             <div class="card-body">
     
-                <form action="" method="POST">
+                <form action="{% url 'taxi_log:create_order' %}" method="POST">
     
                     {% csrf_token %}
                     {{ form|crispy }}

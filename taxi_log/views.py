@@ -13,7 +13,7 @@ from .utils import render_to_pdf
 from .filters import TaxiOrderFilter
 
 # Create your views here.
-
+old_obj = None
 
 #Create order view
 class CreateOrder(LoginRequiredMixin, generic.UpdateView):
@@ -23,6 +23,36 @@ class CreateOrder(LoginRequiredMixin, generic.UpdateView):
 
     #Form 
     form_class = OrderForm
+    #fields = ['order_number', 'confirmation_number', 'request_log_id']
+    
+    # Model 
+    model = TaxiOrder
+    
+    # GET method override 
+    def get(self, request, *args, **kwargs):
+        
+        # Set object 
+        self.object = self.get_object()
+        
+        # Set form and form class
+        form_class = self.get_form_class()
+        form = self.get_form()
+        return self.render_to_response( self.get_context_data(form = form) )
+    
+    # POST method override
+    def post(self, request, *args, **kwargs):
+        
+        # Set the form and form class
+        self.object = TaxiOrder.objects.filter(date_created__date=timezone.now().date()).last()
+        form_class = self.get_form_class()
+        form = self.get_form()
+        
+        # Validate the forms 
+        if(form.is_valid()):
+            return self.form_valid(form)
+        
+        return self.form_invalid(form)
+        
 
     #Get the object to update
     def get_object(self):
@@ -31,7 +61,7 @@ class CreateOrder(LoginRequiredMixin, generic.UpdateView):
         current_date = timezone.now().date()
         queryset = TaxiOrder.objects.filter(date_created__date=current_date)
         
-        #If the quesryset is empty, initialize a new object 
+        #If the queryset is empty, initialize a new object 
         if not queryset:
             
             #Create an entry 
@@ -40,9 +70,6 @@ class CreateOrder(LoginRequiredMixin, generic.UpdateView):
             
             #Save the instance
             order.save()
-            
-            #Return the object
-            return order
         
         #If object(s) already exists
         else:
@@ -53,22 +80,20 @@ class CreateOrder(LoginRequiredMixin, generic.UpdateView):
             #Split the order number and increment only the digits after the date
             #This will prevent still having the same date that will eventually increment to the point that the
             #entire order number will auto increment into the next date
-            lhs_order_number = order_number[:4]
+            date = timezone.now().strftime('%m%d')
+            lhs_order_number = order_number[:len(date)-1]
             print(lhs_order_number)
-            rhs_order_number = '%03d' % ( int(order_number[4:]) + 1 )
-            print(rhs_order_number)
+            rhs_order_number = '%04d' % ( int(order_number[len(date)-1:]) + 1 )
             
             order_number = int( lhs_order_number + rhs_order_number )
             
+            # Create an order 
             order = TaxiOrder(order_number=order_number, user=self.request.user)
-            
-            #Save the instance 
+                
+            # Save the instance 
             order.save()
-
-            #Return the object
-            return order
-
-
+            
+        return order
 
 
 #Order list view 
