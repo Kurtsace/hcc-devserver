@@ -13,3 +13,6 @@
 
 #Media files and folders 
 /media/*
+
+#All json files 
+*.json
