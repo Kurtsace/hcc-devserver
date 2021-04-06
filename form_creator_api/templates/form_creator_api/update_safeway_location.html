@@ -1,0 +1,37 @@
+{% extends 'devserver/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %} Update Location {% endblock %}
+
+{% block stylesheet %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="card">
+
+            <div class="card-header">
+                <h3>Update Location</h3>
+            </div>
+
+            <div class="card-body">
+
+                <form action="" method="POST">
+
+                    {% csrf_token %}
+                    {{ form|crispy }}
+
+                    <input class="btn btn-primary" type="submit" value="Submit">
+                    <a class="btn btn-danger" href="{% url 'form_creator_api:api_home_view' %}">Cancel</a>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

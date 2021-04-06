@@ -34,7 +34,7 @@ SECRET_KEY = data['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['devserver.local', 'hcc-devserver.me.mbgov.ca']
+ALLOWED_HOSTS = ['hcc-devserver.me.mbgov.ca']
 
 
 # Application definition
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'taxi_log',
     'accounts',
     'admin_dashboard',
+    'form_creator_api',
     
     'crispy_forms',
     'bootstrap4',
@@ -92,20 +93,15 @@ WSGI_APPLICATION = 'devserver.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-'''
-'default': {
+
+
+DATABASES = {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': data['NAME'],
         'USER': data['USER'],
         'PASSWORD': data['PASSWORD'],
         'HOST': data['HOST'],
-    }
-'''
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

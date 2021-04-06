@@ -18,33 +18,35 @@ from django.views import generic
 from django.urls import path, include
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-#Home view
+# Home view
 class Home(LoginRequiredMixin, generic.TemplateView):
-    
-    #Template 
-    template_name = 'devserver/home.html'
 
+    # Template
+    template_name = 'devserver/home.html'
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    
-    #Home url
+
+    # Home url
     path('', Home.as_view(), name='home'),
-    
-    #Admin dashboard
+
+    # Admin dashboard
     path('admin_dashboard/', include('admin_dashboard.urls', namespace='admin_dashboard')),
-    
-    #Accounts URLS
+
+    # Accounts URLS
     path('accounts/', include('accounts.urls', namespace='accounts')),
-    
-    #File upload 
+
+    # File upload
     path('file_upload/', include('file_upload.urls', namespace='file_upload')),
-    
-    #File download
+
+    # File download
     path('file_download/', include('file_download.urls', namespace='file_download')),
-    
-    #Taxi Log
-    path('taxi_log/', include('taxi_log.urls', namespace='taxi_log'))
-    
+
+    # Taxi Log
+    path('taxi_log/', include('taxi_log.urls', namespace='taxi_log')),
+
+    # Form creator API 
+    path('form_creator_api/', include('form_creator_api.urls', namespace='form_creator_api'))
+
 ]

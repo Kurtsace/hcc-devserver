@@ -1,0 +1,73 @@
+{% extends 'devserver/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %} New Location {% endblock %}
+
+{% block stylesheet %}
+{% endblock %}
+
+{% block body %}
+
+    <br>
+    <div class="container">
+
+        <div class="card">
+            <div class="card-header">
+                <h3>Current Request Log URL</h3>
+            </div>
+
+            <div class="card-body">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>URL</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tr>
+                        <td>{{ request_log_url }}</td>
+                        <td><a class="btn btn-primary" href="{% url 'form_creator_api:update_request_log_url' pk=request_log_url.pk %}">Edit</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="card">
+            <div class="card-header">
+                <h3>Safeway Locations</h3>
+                <hr>
+                <a class="btn btn-primary" href="{% url 'form_creator_api:create_safeway_location' %}">Create</a>
+            </div>
+
+            <div class="card-body">
+                <table class="table">
+
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Location</th>
+                            <th>Fax Number</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    {% for location in safeway_location_list %}
+                        <tr>
+                            <td> {{ location.location_name }} </td>
+                            <td> {{ location.fax_number }} </td>
+                            <td><a class="btn btn-primary" href="{% url 'form_creator_api:update_safeway_location' pk=location.pk %}">Edit</a></td>
+                            <td><a class="btn btn-danger" href="{% url 'form_creator_api:delete_safeway_location' pk=location.pk %}">Delete</a></td>
+                        </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
