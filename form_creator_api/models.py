@@ -21,7 +21,7 @@ class SafewayLocation(models.Model):
     
     # Redirect
     def get_absolute_url(self):
-        return reverse('form_creator_api:api_home_view')
+        return reverse('form_creator_api:api_control_panel')
     
     # String representation 
     def __str__(self):
@@ -52,7 +52,7 @@ class RequestLogURL(models.Model):
     
     # Redirect
     def get_absolute_url(self):
-        return reverse('form_creator_api:api_home_view')
+        return reverse('form_creator_api:api_control_panel')
     
     # String representation 
     def __str__(self):

@@ -1,6 +1,15 @@
 from django.urls import reverse
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+# DRF Imports 
+from rest_framework.views import APIView 
+from rest_framework.response import Response
+
+# Serializers 
+from .serializers import SafewayLocationSerializer
+
+# Form
 from .forms import NewLocationForm
 
 #Import model
@@ -8,8 +17,49 @@ from .models import SafewayLocation, RequestLogURL
 
 # Create your views here.
 
+##########################################################
+# API Response views 
+##########################################################
+
+# Api overview page 
+class APIOverview(APIView):
+    
+    # Get request 
+    def get(request, *args, **kwargs):
+        
+        # List of endpoints 
+        api_endpoints = {
+            'Safeway List' : '/safeway_list/',
+            'Request Log URL' : '/request_log_url/',
+        }
+        
+        # Return the response 
+        return Response(api_endpoints)
+
+# SafewayLocation List api view 
+class SafewayLocationList(APIView):
+    
+    # Get request 
+    def get(request, *args, **kwargs):
+        
+        # Query all objects 
+        safeway_list = SafewayLocation.objects.all()
+        
+        # Serialize the model 
+        serializer = SafewayLocationSerializer(safeway_list, many=True)
+        
+        # Return the serialized data 
+        return Response(serializer.data)
+    
+
+
+
+##########################################################
+# Model CRUD views
+##########################################################
+
 # API Home view 
-class APIHomeView(LoginRequiredMixin, generic.TemplateView):
+class APIControlPanel(LoginRequiredMixin, generic.TemplateView):
     
     # Template
     template_name = 'form_creator_api/api_home_view.html'
@@ -72,7 +122,7 @@ class DeleteSafewayLocation(LoginRequiredMixin, generic.DeleteView):
     
     # Redirect 
     def get_success_url(self):
-        return reverse('form_creator_api:api_home_view')
+        return reverse('form_creator_api:api_control_panel')
     
 # Update Request Log URL
 class UpdateRequestLogURL(LoginRequiredMixin, generic.UpdateView):

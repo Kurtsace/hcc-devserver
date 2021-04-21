@@ -6,7 +6,14 @@ from django.contrib.admin.views.decorators import staff_member_required
 app_name = 'form_creator_api'
 
 urlpatterns = [
-    path('', staff_member_required( views.APIHomeView.as_view() ), name='api_home_view'),
+    
+    # Endpoints
+    path('', views.APIOverview.as_view(), name='api_overview'),
+    path('safeway_list/', views.SafewayLocationList.as_view(), name='safeway_list_api'),
+    
+    
+    # Form views and template views
+    path('control_panel/', staff_member_required( views.APIControlPanel.as_view() ), name='api_control_panel'),
     path('new_location/', staff_member_required( views.CreateSafewayLocation.as_view() ), name='create_safeway_location'),
     path('update_location/<int:pk>/', staff_member_required( views.UpdateSafewayLocation.as_view() ), name='update_safeway_location'),
     path('delete_location/<int:pk>/', staff_member_required( views.DeleteSafewayLocation.as_view() ), name='delete_safeway_location'),
