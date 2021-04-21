@@ -45,8 +45,4 @@ urlpatterns = [
 
     # Taxi Log
     path('taxi_log/', include('taxi_log.urls', namespace='taxi_log')),
-
-    # Form creator API 
-    path('form_creator_api/', include('form_creator_api.urls', namespace='form_creator_api'))
-
 ]
