@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 # Serializers 
-from .serializers import SafewayLocationSerializer
+from .serializers import SafewayLocationSerializer, RequestLogURLSerializer
 
 # Form
 from .forms import NewLocationForm
@@ -51,6 +51,20 @@ class SafewayLocationList(APIView):
         # Return the serialized data 
         return Response(serializer.data)
     
+# RequestLogURL detail view 
+class RequestLogDetail(APIView):
+    
+    # Get request 
+    def get(self, *args, **kwargs):
+        
+        # Query the object 
+        request_log_url = RequestLogURL.objects.first()
+        
+        # Serializer 
+        serializer = RequestLogURLSerializer(request_log_url, many=False)
+        
+        # Return serialized data 
+        return Response(serializer.data)
 
 
 
