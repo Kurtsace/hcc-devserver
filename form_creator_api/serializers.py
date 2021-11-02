@@ -1,5 +1,6 @@
 from rest_framework import serializers 
 from .models import SafewayLocation, RequestLogURL
+from file_upload.models import File
 
 # SafewayLocation serializer 
 class SafewayLocationSerializer(serializers.ModelSerializer):
@@ -23,3 +24,17 @@ class RequestLogURLSerializer(serializers.ModelSerializer):
         
         # Fields 
         fields = ['url']
+        
+# Uploaded File serializer 
+class UploadedFileSerializer(serializers.ModelSerializer):
+    
+    # Meta 
+    class Meta: 
+        
+        model = File 
+        
+        fields = ['file_name', 'version']
+        
+        lookup_field = 'file_name'
+        
+        lookup_url_kwarg = 'file_name'

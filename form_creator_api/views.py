@@ -1,19 +1,21 @@
 from django.urls import reverse
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404
 
 # DRF Imports 
 from rest_framework.views import APIView 
 from rest_framework.response import Response
 
 # Serializers 
-from .serializers import SafewayLocationSerializer, RequestLogURLSerializer
+from .serializers import *
 
 # Form
 from .forms import NewLocationForm
 
 #Import model
 from .models import SafewayLocation, RequestLogURL
+from file_upload.models import File
 
 # Create your views here.
 
@@ -51,7 +53,7 @@ class SafewayLocationList(APIView):
         # Return the serialized data 
         return Response(serializer.data)
     
-# RequestLogURL detail view 
+# RequestLogURL api view 
 class RequestLogDetail(APIView):
     
     # Get request 
@@ -62,6 +64,22 @@ class RequestLogDetail(APIView):
         
         # Serializer 
         serializer = RequestLogURLSerializer(request_log_url, many=False)
+        
+        # Return serialized data 
+        return Response(serializer.data)
+    
+# Uploaded file api view
+class UploadedFileDetail(APIView):
+    
+    # Get request 
+    def get(self, *args, **kwargs):
+        
+        # Query provided object
+        filename = self.kwargs['file_name']
+        uploaded_files = get_object_or_404(File, file_name=filename)
+        
+        # Serialize the model 
+        serializer = UploadedFileSerializer(uploaded_files, many=False)
         
         # Return serialized data 
         return Response(serializer.data)
