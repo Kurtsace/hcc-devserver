@@ -34,7 +34,7 @@ SECRET_KEY = data['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['devserver.local', 'hcc-devserver.me.mbgov.ca']
+ALLOWED_HOSTS = ['hcc-devserver.me.mbgov.ca']
 
 
 # Application definition
@@ -92,15 +92,6 @@ WSGI_APPLICATION = 'devserver.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases]
-'''
-'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': data['NAME'],
-        'USER': data['USER'],
-        'PASSWORD': data['PASSWORD'],
-        'HOST': data['HOST'],
-    }
-'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -111,6 +102,14 @@ DATABASES = {
     }
 }
 
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
