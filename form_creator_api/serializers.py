@@ -33,8 +33,8 @@ class UploadedFileSerializer(serializers.ModelSerializer):
         
         model = File 
         
-        fields = ['file_name', 'version']
+        fields = ['endpoint_name', 'version']
         
-        lookup_field = 'file_name'
+        lookup_field = 'endpoint_name'
         
-        lookup_url_kwarg = 'file_name'
+        lookup_url_kwarg = 'endpoint_name'

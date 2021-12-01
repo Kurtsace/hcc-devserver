@@ -21,6 +21,9 @@ class File(models.Model):
     #Filename 
     file_name = models.CharField(max_length=255, blank=True, null=True)
     
+    # Endpoint name 
+    endpoint_name = models.SlugField(max_length=255, blank=False, null=False, unique=True)
+    
     #Version 
     version = models.CharField(max_length=255, blank=True, null=True)
 

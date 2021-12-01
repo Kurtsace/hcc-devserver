@@ -75,7 +75,7 @@ class UploadedFileDetail(APIView):
     def get(self, *args, **kwargs):
         
         # Query provided object
-        filename = self.kwargs['file_name']
+        filename = self.kwargs['endpoint_name']
         uploaded_files = get_object_or_404(File, file_name=filename)
         
         # Serialize the model 

@@ -11,7 +11,7 @@ urlpatterns = [
     path('', views.APIOverview.as_view(), name='api_overview'),
     path('safeway_list/', views.SafewayLocationList.as_view(), name='safeway_list_api'),
     path('request_log_url/', views.RequestLogDetail.as_view(), name='request_log_api'),
-    path('uploaded_files/<str:file_name>/', views.UploadedFileDetail.as_view(), name='uploaded_files_api'),
+    path('uploaded_files/<str:endpoint_name>/', views.UploadedFileDetail.as_view(), name='uploaded_files_api'),
     
     # Form views and template views
     path('control_panel/', staff_member_required( views.APIControlPanel.as_view() ), name='api_control_panel'),
