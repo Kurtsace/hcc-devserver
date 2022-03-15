@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 import os 
 
 # Create your views here.
-class FileDownload(generic.View):
+class FileDownload(LoginRequiredMixin, generic.View):
 
     #Get request
     def get(self, request, slug):

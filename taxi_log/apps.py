@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class WebBookerConfig(AppConfig):
-    name = 'web_booker'
+class TaxiLogConfig(AppConfig):
+    name = 'taxi_log'

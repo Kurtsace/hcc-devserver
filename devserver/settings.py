@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap4',
     'django_filters',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -152,6 +153,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+STATIC_ROOT = '/static/'
 
 
 #Media files 

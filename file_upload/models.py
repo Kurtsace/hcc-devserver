@@ -22,7 +22,7 @@ class File(models.Model):
     file_name = models.CharField(max_length=255, blank=True, null=True)
     
     # Endpoint name 
-    endpoint_name = models.SlugField(max_length=255, blank=False, null=False, unique=True)
+    endpoint_name = models.CharField(max_length=255, blank=False, null=False, unique=True)
     
     #Version 
     version = models.CharField(max_length=255, blank=True, null=True)

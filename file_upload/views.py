@@ -22,7 +22,7 @@ class FileList(generic.ListView):
     template_name = 'file_upload/file_list_view.html'
     
 #File detail view 
-class FileDetail(generic.DetailView):
+class FileDetail(LoginRequiredMixin, generic.DetailView):
     
     #Model
     model = File 

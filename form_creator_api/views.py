@@ -33,6 +33,7 @@ class APIOverview(APIView):
         api_endpoints = {
             'Safeway List' : '/safeway_list/',
             'Request Log URL' : '/request_log_url/',
+            'Uploaded File Detail' : '/uploaded_files/<str:endpoint_name>'
         }
         
         # Return the response 
@@ -75,15 +76,14 @@ class UploadedFileDetail(APIView):
     def get(self, *args, **kwargs):
         
         # Query provided object
-        filename = self.kwargs['endpoint_name']
-        uploaded_files = get_object_or_404(File, file_name=filename)
+        endpoint_name = self.kwargs['endpoint_name']
+        uploaded_files = get_object_or_404(File, endpoint_name=endpoint_name)
         
         # Serialize the model 
         serializer = UploadedFileSerializer(uploaded_files, many=False)
         
         # Return serialized data 
         return Response(serializer.data)
-
 
 
 ##########################################################

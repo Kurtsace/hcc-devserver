@@ -11,7 +11,7 @@ class UploadFileForm(ModelForm):
         model = File
 
         # Fields
-        fields = ('uploaded_file', 'description', 'version', 'user')
+        fields = ('uploaded_file', 'endpoint_name', 'description', 'version', 'user')
 
         # Widgets
         widgets = {
@@ -48,7 +48,7 @@ class UpdateFileForm(ModelForm):
         model = File
 
         # Fields
-        fields = ('uploaded_file', 'version')
+        fields = ('uploaded_file', 'endpoint_name', 'description', 'version')
 
         # Widgets
         widgets = {

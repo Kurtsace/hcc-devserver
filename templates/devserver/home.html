@@ -36,6 +36,20 @@
                 <p class="card-text">Generate and input order numbers here</p>
             </div>
         </div>
+
+        {% if user.is_staff %}
+        <br>
+        <div class="card">
+            <div class="card-header">
+                <h3><a href="{% url 'form_creator_api:api_control_panel' %}">Form Creator API</a></h3>
+            </div>
+
+            <div class="card-body">
+                <p class="card-text">Control panel for the Form Creator API</p>
+            </div>
+        </div>
+        {% endif %}
+        
     </div>
 
 {% endblock %}
